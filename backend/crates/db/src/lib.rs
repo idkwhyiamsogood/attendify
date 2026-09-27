@@ -1,14 +1,11 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+use std::time::Duration;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+use sea_orm::{ConnectOptions, Database, DatabaseConnection};
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+/// Подключение к БД с настройками, одинаковыми для всех сервисов.
+pub async fn connect(database_url: &str) -> anyhow::Result<DatabaseConnection> {
+    let mut opt = ConnectOptions::new(database_url.to_owned());
+    opt.max_connections(10)
+        .acquire_timeout(Duration::from_secs(5));
+    Ok(Database::connect(opt).await?)
 }
