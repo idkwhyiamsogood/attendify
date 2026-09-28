@@ -1,21 +1,21 @@
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
-use crate::model::enums::{user_kind::UserKind, user_status::UserStatus};
+use crate::model::enums::{device_status::DeviceStatus, platform::Platform};
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
 #[sea_orm(table_name = "devices")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
-    pub kind: UserKind,
-    pub status: UserStatus,
+    pub user_id: Uuid, // FK to table(users)
+    pub platform: Platform,
+    pub status: DeviceStatus,
 
-    pub student_id: Option<Uuid>,
-    pub staff_id: Option<Uuid>,
-
-    pub login: String,
-    pub password_hash: Option<String>,
+    // secure
+    pub device_id_hash: Vec<u8>,
+    pub public_key_spki: Option<Vec<u8>>,
+    pub key_id: Option<String>,
 
     #[sea_orm(default_expr = "Expr::current_timestamp()")]
     pub created_at: DateTimeUtc,
@@ -24,31 +24,20 @@ pub struct Model {
     pub updated_at: DateTimeUtc,
 }
 
-// TODO
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
-pub enum Relation {}
+pub enum Relation {
+    #[sea_orm(
+        belongs_to = "super::users::Entity",
+        from = "Column::UserId",
+        to = "super::users::Column::Id"
+    )]
+    Users,
+}
 
-#[async_trait::async_trait]
-impl ActiveModelBehavior for ActiveModel {
-    async fn before_save<C>(self, _db: &C, _insert: bool) -> Result<Self, DbErr>
-    where
-        C: ConnectionTrait,
-    {
-        let ok = match self.kind.as_ref() {
-            UserKind::Student => {
-                self.student_id.as_ref().is_some() && self.staff_id.as_ref().is_none()
-            }
-            UserKind::Staff | UserKind::Admin => {
-                self.staff_id.as_ref().is_some() && self.student_id.as_ref().is_none()
-            }
-        };
-
-        if !ok {
-            return Err(DbErr::Custom(
-                "users: student_id/staff_id должны соответствовать kind".into(),
-            ));
-        };
-
-        return Ok(self);
+impl Related<super::users::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Users.def()
     }
 }
+
+impl ActiveModelBehavior for ActiveModel {}
