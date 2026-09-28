@@ -7,3 +7,5 @@ edition.workspace = true
 common = { workspace = true }
 axum = { workspace = true }
 tokio = { workspace = true }
+sea_orm = { workspace = true }
+serde = { workspace = true }
