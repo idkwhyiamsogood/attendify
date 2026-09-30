@@ -9,3 +9,4 @@ axum = { workspace = true }
 tokio = { workspace = true }
 sea_orm = { workspace = true }
 serde = { workspace = true }
+async_trait = { workspace = true }

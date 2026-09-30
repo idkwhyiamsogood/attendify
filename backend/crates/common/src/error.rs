@@ -34,13 +34,13 @@ impl IntoResponse for AppError {
         if matches!(self, AppError::Internal(_)) {
             tracing::error!(error = %self, "internal error");
         }
-        (
+        return (
             status,
             Json(Problem {
                 code,
                 message: self.to_string(),
             }),
         )
-            .into_response()
+            .into_response();
     }
 }
