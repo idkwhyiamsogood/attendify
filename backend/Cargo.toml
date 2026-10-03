@@ -20,8 +20,8 @@ anyhow = "1"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["json", "env-filter"] }
 figment = { version = "0.10", features = ["env", "toml"] }
-
+chrono = "0.4"
 sea_orm = { package = "sea-orm", version = "1", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros", "with-uuid", "with-time"] }
-uuid = { version = "1", features = ["v7", "serde"] }
+uuid = { version = "1", features = ["v7", "serde", "v4"] }
 time = { version = "0.3", features = ["serde"] }
-async_trait = { version="stable" }
+async_trait = { package = "async-trait", version = "0.1" }
