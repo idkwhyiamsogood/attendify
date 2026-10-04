@@ -1,3 +1,3 @@
-pub mod cashe;
+pub mod cache;
 pub mod message;
 pub mod postgres;

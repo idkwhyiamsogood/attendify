@@ -1,5 +1,5 @@
 pub mod infra;
-pub mod serivces;
+pub mod services;
 pub mod routes;
 pub mod model;
 
