@@ -9,5 +9,6 @@ pub trait ISpecialtiesRepo: Send + Sync {
     async fn get_specialty_by_id(&self, id: Uuid) -> Result<Option<SpecialtyModel>, DbErr>;
     async fn create(&self, name: String) -> Result<SpecialtyModel, DbErr>;
     async fn update(&self, id: Uuid, name: Option<String>) -> Result<Option<SpecialtyModel>, DbErr>;
-    async fn delete(&self, id: Uuid) -> Result<Uuid, DbErr>;
+    /// `false`, если записи с таким id не было
+    async fn delete(&self, id: Uuid) -> Result<bool, DbErr>;
 }

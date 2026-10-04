@@ -1,8 +1,10 @@
 use async_trait::async_trait;
 use chrono::Utc;
-use sea_orm::{ActiveModelTrait, DatabaseConnection, DbErr, EntityTrait, IntoActiveModel, Set};
+use sea_orm::{ActiveModelTrait, DatabaseConnection, DbErr, EntityTrait};
+use sea_orm::ActiveValue::{NotSet, Set};
 use uuid::Uuid;
 
+use crate::infra::postgres::none_if_not_found;
 use crate::model::entities::specialties::{
     ActiveModel, Entity as Specialty, Model as SpecialtyModel,
 };
@@ -31,7 +33,7 @@ impl ISpecialtiesRepo for SpecialtiesRepo {
 
     async fn create(&self, name: String) -> Result<SpecialtyModel, DbErr> {
         ActiveModel {
-            id: Set(Uuid::new_v4()),
+            id: Set(Uuid::now_v7()),
             name: Set(name),
 
             ..Default::default()
@@ -45,24 +47,18 @@ impl ISpecialtiesRepo for SpecialtiesRepo {
         id: Uuid,
         name: Option<String>,
     ) -> Result<Option<SpecialtyModel>, DbErr> {
-        let mut active_model = ActiveModel {
+        let active_model = ActiveModel {
             id: Set(id),
+            name: name.map_or(NotSet, Set),
+            updated_at: Set(Utc::now()),
             ..Default::default()
         };
 
-        if let Some(name) = name {
-            active_model.name = Set(name);
-        }
-        active_model.updated_at = Set(Utc::now());
-
-        match active_model.update(&self.db).await {
-            Ok(model) => Ok(Some(model)),
-            Err(DbErr::RecordNotUpdated) => Ok(None),
-            Err(e) => Err(e),
-        }
+        none_if_not_found(active_model.update(&self.db).await)
     }
 
-    async fn delete(&self, id: Uuid) -> Result<Uuid, DbErr> {
-        Specialty::delete_by_id(id).exec(&self.db).await.map(|_| id)
+    async fn delete(&self, id: Uuid) -> Result<bool, DbErr> {
+        let res = Specialty::delete_by_id(id).exec(&self.db).await?;
+        Ok(res.rows_affected > 0)
     }
 }
