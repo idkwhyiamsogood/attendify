@@ -1,3 +1,4 @@
+use sea_orm::ActiveValue;
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
@@ -66,13 +67,29 @@ impl ActiveModelBehavior for ActiveModel {
     where
         C: ConnectionTrait,
     {
-        let ok = match self.kind.as_ref() {
-            UserKind::Student => {
-                self.student_id.as_ref().is_some() && self.staff_id.as_ref().is_none()
+        // NotSet при частичном update: as_ref() на нём паникует, поэтому разбираем вручную
+        fn value<V: Into<Value>>(v: &ActiveValue<V>) -> Option<&V> {
+            match v {
+                ActiveValue::Set(v) | ActiveValue::Unchanged(v) => Some(v),
+                ActiveValue::NotSet => None,
             }
-            UserKind::Staff | UserKind::Admin => {
-                self.staff_id.as_ref().is_some() && self.student_id.as_ref().is_none()
+        }
+
+        let ok = match (
+            value(&self.kind),
+            value(&self.student_id),
+            value(&self.staff_id),
+        ) {
+            // ни одно из связанных полей не меняется — проверять нечего
+            (None, None, None) => true,
+            (Some(UserKind::Student), Some(student_id), Some(staff_id)) => {
+                student_id.is_some() && staff_id.is_none()
             }
+            (Some(UserKind::Staff | UserKind::Admin), Some(student_id), Some(staff_id)) => {
+                staff_id.is_some() && student_id.is_none()
+            }
+            // kind, student_id и staff_id меняются только вместе
+            _ => false,
         };
 
         if !ok {

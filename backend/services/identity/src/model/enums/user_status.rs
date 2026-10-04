@@ -14,5 +14,5 @@ pub enum UserStatus {
     Blocked,
 
     #[sea_orm(string_value = "archived")]
-    Archive,
+    Archived,
 }
