@@ -6,7 +6,7 @@ use sea_orm::{
 use uuid::Uuid;
 
 use crate::infra::postgres::none_if_not_found;
-use crate::model::dto::devices::CreateDeviceDto;
+use crate::model::params::devices::CreateDeviceParams;
 use crate::model::entities::devices::{
     ActiveModel, Column, Entity as Device, Model as DeviceModel,
 };
@@ -60,7 +60,7 @@ impl IDeviceRepo for DeviceRepo {
             .await
     }
 
-    async fn create(&self, device: CreateDeviceDto) -> Result<DeviceModel, DbErr> {
+    async fn create(&self, device: CreateDeviceParams) -> Result<DeviceModel, DbErr> {
         ActiveModel {
             id: Set(Uuid::now_v7()),
             user_id: Set(device.user_id),

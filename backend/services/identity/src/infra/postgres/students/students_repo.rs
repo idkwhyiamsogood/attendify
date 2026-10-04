@@ -5,7 +5,7 @@ use sea_orm::ActiveValue::{NotSet, Set};
 use uuid::Uuid;
 
 use crate::infra::postgres::none_if_not_found;
-use crate::model::dto::students::{CreateStudentDto, UpdateStudentDto};
+use crate::model::params::students::{CreateStudentParams, UpdateStudentParams};
 use crate::model::entities::students::{
     ActiveModel, Column, Entity as Student, Model as StudentModel,
 };
@@ -35,7 +35,7 @@ impl IStudentsRepo for StudentsRepo {
             .await
     }
 
-    async fn create(&self, student: CreateStudentDto) -> Result<StudentModel, DbErr> {
+    async fn create(&self, student: CreateStudentParams) -> Result<StudentModel, DbErr> {
         ActiveModel {
             id: Set(Uuid::now_v7()),
             last_name: Set(student.last_name),
@@ -53,7 +53,7 @@ impl IStudentsRepo for StudentsRepo {
     async fn update(
         &self,
         id: Uuid,
-        student: UpdateStudentDto,
+        student: UpdateStudentParams,
     ) -> Result<Option<StudentModel>, DbErr> {
         let active_model = ActiveModel {
             id: Set(id),

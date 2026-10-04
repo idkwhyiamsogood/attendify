@@ -2,7 +2,7 @@ use async_trait::async_trait;
 use sea_orm::DbErr;
 use uuid::Uuid;
 
-use crate::model::dto::users::CreateUserDto;
+use crate::model::params::users::CreateUserParams;
 use crate::model::entities::users::Model as UserModel;
 use crate::model::enums::user_status::UserStatus;
 
@@ -12,7 +12,7 @@ pub trait IUsersRepo: Send + Sync {
     async fn get_by_login(&self, login: &str) -> Result<Option<UserModel>, DbErr>;
     async fn get_by_student_id(&self, student_id: Uuid) -> Result<Option<UserModel>, DbErr>;
     async fn get_by_staff_id(&self, staff_id: Uuid) -> Result<Option<UserModel>, DbErr>;
-    async fn create(&self, user: CreateUserDto) -> Result<UserModel, DbErr>;
+    async fn create(&self, user: CreateUserParams) -> Result<UserModel, DbErr>;
     async fn update_login(&self, id: Uuid, login: String) -> Result<Option<UserModel>, DbErr>;
     async fn update_status(&self, id: Uuid, status: UserStatus)
         -> Result<Option<UserModel>, DbErr>;

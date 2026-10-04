@@ -5,7 +5,7 @@ use sea_orm::ActiveValue::{NotSet, Set};
 use uuid::Uuid;
 
 use crate::infra::postgres::none_if_not_found;
-use crate::model::dto::groups::{CreateGroupDto, UpdateGroupDto};
+use crate::model::params::groups::{CreateGroupParams, UpdateGroupParams};
 use crate::model::entities::groups::{ActiveModel, Column, Entity as Group, Model as GroupModel};
 
 use super::groups_repo_interface::IGroupsRepo;
@@ -51,7 +51,7 @@ impl IGroupsRepo for GroupsRepo {
             .await
     }
 
-    async fn create(&self, group: CreateGroupDto) -> Result<GroupModel, DbErr> {
+    async fn create(&self, group: CreateGroupParams) -> Result<GroupModel, DbErr> {
         ActiveModel {
             id: Set(Uuid::now_v7()),
             code: Set(group.code),
@@ -66,7 +66,7 @@ impl IGroupsRepo for GroupsRepo {
         .await
     }
 
-    async fn update(&self, id: Uuid, group: UpdateGroupDto) -> Result<Option<GroupModel>, DbErr> {
+    async fn update(&self, id: Uuid, group: UpdateGroupParams) -> Result<Option<GroupModel>, DbErr> {
         let active_model = ActiveModel {
             id: Set(id),
             code: group.code.map_or(NotSet, Set),

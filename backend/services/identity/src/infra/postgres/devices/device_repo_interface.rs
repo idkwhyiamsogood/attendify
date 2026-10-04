@@ -2,7 +2,7 @@ use async_trait::async_trait;
 use sea_orm::DbErr;
 use uuid::Uuid;
 
-use crate::model::dto::devices::CreateDeviceDto;
+use crate::model::params::devices::CreateDeviceParams;
 use crate::model::entities::devices::Model as DeviceModel;
 use crate::model::enums::device_status::DeviceStatus;
 
@@ -15,7 +15,7 @@ pub trait IDeviceRepo: Send + Sync {
         &self,
         device_id_hash: Vec<u8>,
     ) -> Result<Option<DeviceModel>, DbErr>;
-    async fn create(&self, device: CreateDeviceDto) -> Result<DeviceModel, DbErr>;
+    async fn create(&self, device: CreateDeviceParams) -> Result<DeviceModel, DbErr>;
     async fn update_status(
         &self,
         id: Uuid,

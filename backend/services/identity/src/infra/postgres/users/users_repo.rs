@@ -6,7 +6,7 @@ use sea_orm::{
 use uuid::Uuid;
 
 use crate::infra::postgres::none_if_not_found;
-use crate::model::dto::users::CreateUserDto;
+use crate::model::params::users::CreateUserParams;
 use crate::model::entities::users::{ActiveModel, Column, Entity as User, Model as UserModel};
 use crate::model::enums::user_status::UserStatus;
 
@@ -54,7 +54,7 @@ impl IUsersRepo for UsersRepo {
             .await
     }
 
-    async fn create(&self, user: CreateUserDto) -> Result<UserModel, DbErr> {
+    async fn create(&self, user: CreateUserParams) -> Result<UserModel, DbErr> {
         ActiveModel {
             id: Set(Uuid::now_v7()),
             kind: Set(user.kind),

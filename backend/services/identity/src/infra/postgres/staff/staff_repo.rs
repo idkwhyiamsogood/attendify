@@ -5,7 +5,7 @@ use sea_orm::ActiveValue::{NotSet, Set};
 use uuid::Uuid;
 
 use crate::infra::postgres::none_if_not_found;
-use crate::model::dto::staff::{CreateStaffDto, UpdateStaffDto};
+use crate::model::params::staff::{CreateStaffParams, UpdateStaffParams};
 use crate::model::entities::staff::{ActiveModel, Column, Entity as Staff, Model as StaffModel};
 
 use super::staff_repo_interface::IStaffRepo;
@@ -37,7 +37,7 @@ impl IStaffRepo for StaffRepo {
             .await
     }
 
-    async fn create(&self, staff: CreateStaffDto) -> Result<StaffModel, DbErr> {
+    async fn create(&self, staff: CreateStaffParams) -> Result<StaffModel, DbErr> {
         ActiveModel {
             id: Set(Uuid::now_v7()),
             last_name: Set(staff.last_name),
@@ -52,7 +52,7 @@ impl IStaffRepo for StaffRepo {
         .await
     }
 
-    async fn update(&self, id: Uuid, staff: UpdateStaffDto) -> Result<Option<StaffModel>, DbErr> {
+    async fn update(&self, id: Uuid, staff: UpdateStaffParams) -> Result<Option<StaffModel>, DbErr> {
         let (last_name, last_name_bidx) = staff
             .last_name
             .map_or((NotSet, NotSet), |(name, bidx)| (Set(name), Set(bidx)));
