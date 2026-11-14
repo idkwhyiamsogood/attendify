@@ -1,0 +1,3 @@
+digraph G { graph [rankdir=TB,bgcolor="white",fontname="DejaVu Sans",fontsize=12,nodesep=0.35,ranksep=0.55,pad=0.15]; node [shape=box,style="rounded,filled",fillcolor="#f1f3f5",color="#374151",fontname="DejaVu Sans",fontsize=11,margin="0.12,0.08"];edge[color="#374151",fontname="DejaVu Sans",fontsize=9,arrowsize=0.7];
+a[label="Очередь с event_id"];b[label="POST пакет по TLS"];c[shape=diamond,label="Есть отзыв на\nмомент события?"];d[label="Сохранить как конфликт;\nне включать в показатели"];e[label="Добавить событие\nON CONFLICT не дублировать"];f[label="Подтверждение event_id"];a->b->c;c->d[label="да"];c->e[label="нет"];d->f;e->f;
+}

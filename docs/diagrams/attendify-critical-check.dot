@@ -1,0 +1,3 @@
+digraph G { graph [rankdir=TB,bgcolor="white",fontname="DejaVu Sans",fontsize=12,nodesep=0.35,ranksep=0.55,pad=0.15]; node [shape=box,style="rounded,filled",fillcolor="#f1f3f5",color="#374151",fontname="DejaVu Sans",fontsize=11,margin="0.12,0.08"];edge[color="#374151",fontname="DejaVu Sans",fontsize=9,arrowsize=0.7];
+start[shape=circle,label="",width=.15];a[label="Получить вызов сеанса"];b[label="Подписать событие\nключом устройства"];c[shape=diamond,label="Допуск/подпись/\nверсия/интервал верны?"];d[label="Сохранить событие;\nподтвердить локально"];e[label="Отклонить с причиной"];start->a->b->c;c->d[label="да"];c->e[label="нет"];
+}

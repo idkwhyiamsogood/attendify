@@ -1,0 +1,37 @@
+digraph G { graph [rankdir=TB,bgcolor="white",fontname="DejaVu Sans",fontsize=12,nodesep=0.35,ranksep=0.55,pad=0.15]; node [shape=box,style="rounded,filled",fillcolor="#f1f3f5",color="#374151",fontname="DejaVu Sans",fontsize=11,margin="0.12,0.08"];edge[color="#374151",fontname="DejaVu Sans",fontsize=9,arrowsize=0.7];
+graph[rankdir=TB,nodesep=0.6,ranksep=0.3];
+admin_0[label="Администратор"];
+api_0[label="API"];
+student_0[label="Студент"];
+{rank=same;admin_0;api_0;student_0;}
+admin_1[shape=point,label="",width=.025];admin_0->admin_1[style=dashed,arrowhead=none];
+api_1[shape=point,label="",width=.025];api_0->api_1[style=dashed,arrowhead=none];
+student_1[shape=point,label="",width=.025];student_0->student_1[style=dashed,arrowhead=none];
+{rank=same;admin_1;api_1;student_1;}
+admin_1->api_1[label="1. Предварительная запись/активация",constraint=false];
+admin_2[shape=point,label="",width=.025];admin_1->admin_2[style=dashed,arrowhead=none];
+api_2[shape=point,label="",width=.025];api_1->api_2[style=dashed,arrowhead=none];
+student_2[shape=point,label="",width=.025];student_1->student_2[style=dashed,arrowhead=none];
+{rank=same;admin_2;api_2;student_2;}
+student_2->api_2[label="2. Основание обработки и привязка",constraint=false];
+admin_3[shape=point,label="",width=.025];admin_2->admin_3[style=dashed,arrowhead=none];
+api_3[shape=point,label="",width=.025];api_2->api_3[style=dashed,arrowhead=none];
+student_3[shape=point,label="",width=.025];student_2->student_3[style=dashed,arrowhead=none];
+{rank=same;admin_3;api_3;student_3;}
+admin_3->api_3[label="3. Настройки риска/хранения",constraint=false];
+admin_4[shape=point,label="",width=.025];admin_3->admin_4[style=dashed,arrowhead=none];
+api_4[shape=point,label="",width=.025];api_3->api_4[style=dashed,arrowhead=none];
+student_4[shape=point,label="",width=.025];student_3->student_4[style=dashed,arrowhead=none];
+{rank=same;admin_4;api_4;student_4;}
+api_4->admin_4[label="4. Версии и аудит",constraint=false];
+admin_5[shape=point,label="",width=.025];admin_4->admin_5[style=dashed,arrowhead=none];
+api_5[shape=point,label="",width=.025];api_4->api_5[style=dashed,arrowhead=none];
+student_5[shape=point,label="",width=.025];student_4->student_5[style=dashed,arrowhead=none];
+{rank=same;admin_5;api_5;student_5;}
+admin_5->api_5[label="А2. Подтверждённый сброс привязки",constraint=false];
+admin_6[shape=point,label="",width=.025];admin_5->admin_6[style=dashed,arrowhead=none];
+api_6[shape=point,label="",width=.025];api_5->api_6[style=dashed,arrowhead=none];
+student_6[shape=point,label="",width=.025];student_5->student_6[style=dashed,arrowhead=none];
+{rank=same;admin_6;api_6;student_6;}
+api_6->student_6[label="А2. Повторная активация",constraint=false];
+}

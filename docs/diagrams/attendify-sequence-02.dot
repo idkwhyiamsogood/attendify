@@ -1,0 +1,42 @@
+digraph G { graph [rankdir=TB,bgcolor="white",fontname="DejaVu Sans",fontsize=12,nodesep=0.35,ranksep=0.55,pad=0.15]; node [shape=box,style="rounded,filled",fillcolor="#f1f3f5",color="#374151",fontname="DejaVu Sans",fontsize=11,margin="0.12,0.08"];edge[color="#374151",fontname="DejaVu Sans",fontsize=9,arrowsize=0.7];
+graph[rankdir=TB,nodesep=0.6,ranksep=0.3];
+teacher_0[label="Преподаватель"];
+app_0[label="TeacherApp"];
+server_0[label="API"];
+{rank=same;teacher_0;app_0;server_0;}
+teacher_1[shape=point,label="",width=.025];teacher_0->teacher_1[style=dashed,arrowhead=none];
+app_1[shape=point,label="",width=.025];app_0->app_1[style=dashed,arrowhead=none];
+server_1[shape=point,label="",width=.025];server_0->server_1[style=dashed,arrowhead=none];
+{rank=same;teacher_1;app_1;server_1;}
+teacher_1->app_1[label="1. Выбрать занятие",constraint=false];
+teacher_2[shape=point,label="",width=.025];teacher_1->teacher_2[style=dashed,arrowhead=none];
+app_2[shape=point,label="",width=.025];app_1->app_2[style=dashed,arrowhead=none];
+server_2[shape=point,label="",width=.025];server_1->server_2[style=dashed,arrowhead=none];
+{rank=same;teacher_2;app_2;server_2;}
+app_2[shape=box,label="2. Проверить снимок и открыть приём"];
+teacher_3[shape=point,label="",width=.025];teacher_2->teacher_3[style=dashed,arrowhead=none];
+app_3[shape=point,label="",width=.025];app_2->app_3[style=dashed,arrowhead=none];
+server_3[shape=point,label="",width=.025];server_2->server_3[style=dashed,arrowhead=none];
+{rank=same;teacher_3;app_3;server_3;}
+teacher_3->app_3[label="3. Закрыть приём",constraint=false];
+teacher_4[shape=point,label="",width=.025];teacher_3->teacher_4[style=dashed,arrowhead=none];
+app_4[shape=point,label="",width=.025];app_3->app_4[style=dashed,arrowhead=none];
+server_4[shape=point,label="",width=.025];server_3->server_4[style=dashed,arrowhead=none];
+{rank=same;teacher_4;app_4;server_4;}
+app_4->server_4[label="4. Синхронизация",constraint=false];
+teacher_5[shape=point,label="",width=.025];teacher_4->teacher_5[style=dashed,arrowhead=none];
+app_5[shape=point,label="",width=.025];app_4->app_5[style=dashed,arrowhead=none];
+server_5[shape=point,label="",width=.025];server_4->server_5[style=dashed,arrowhead=none];
+{rank=same;teacher_5;app_5;server_5;}
+teacher_5->app_5[label="5. Выбрать период",constraint=false];
+teacher_6[shape=point,label="",width=.025];teacher_5->teacher_6[style=dashed,arrowhead=none];
+app_6[shape=point,label="",width=.025];app_5->app_6[style=dashed,arrowhead=none];
+server_6[shape=point,label="",width=.025];server_5->server_6[style=dashed,arrowhead=none];
+{rank=same;teacher_6;app_6;server_6;}
+app_6->server_6[label="6. Запрос сводки со своими правами",constraint=false];
+teacher_7[shape=point,label="",width=.025];teacher_6->teacher_7[style=dashed,arrowhead=none];
+app_7[shape=point,label="",width=.025];app_6->app_7[style=dashed,arrowhead=none];
+server_7[shape=point,label="",width=.025];server_6->server_7[style=dashed,arrowhead=none];
+{rank=same;teacher_7;app_7;server_7;}
+server_7->app_7[label="7. Показатели/нет данных",constraint=false];
+}

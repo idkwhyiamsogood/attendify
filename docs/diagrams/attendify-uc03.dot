@@ -1,0 +1,43 @@
+digraph G { graph [rankdir=TB,bgcolor="white",fontname="DejaVu Sans",fontsize=12,nodesep=0.35,ranksep=0.55,pad=0.15]; node [shape=box,style="rounded,filled",fillcolor="#f1f3f5",color="#374151",fontname="DejaVu Sans",fontsize=11,margin="0.12,0.08"];edge[color="#374151",fontname="DejaVu Sans",fontsize=9,arrowsize=0.7];
+graph[ranksep=0.2,nodesep=0.2];
+start[shape=circle,label="",width=0.15,height=0.15,fillcolor="#374151"];finish[shape=doublecircle,label="",width=0.18,height=0.18,fillcolor="#374151"];
+n1[label="1. Открыть класс и период"];
+n2[label="2. Получить список риска"];
+n3[label="3. Открыть карточку"];
+n4[label="4. Занятия и запросы"];
+n5[label="5. Ввести основание корректировки"];
+n6[label="6. Пересчитать показатели"];
+n7[label="7. Выбрать формат экспорта"];
+start->n1;
+n1->n2;
+q0[shape=diamond,label="Настройки изменены?",fillcolor="white"];
+a0[label="А2. Пересчитать при запросе",fillcolor="#fff4db"];
+n2->q0;
+q0->a0[label="да"];
+a0->n3;
+{rank=same;q0;a0;}
+q0->n3[label="нет"];
+n3->n4;
+q1[shape=diamond,label="Есть запрос?",fillcolor="white"];
+a1[label="А4. Одобрить/отклонить\nс основанием FR-27",fillcolor="#fff4db"];
+n4->q1;
+q1->a1[label="да"];
+a1->n6;
+{rank=same;q1;a1;}
+q1->n5[label="нет"];
+q2[shape=diamond,label="Нет смартфона?",fillcolor="white"];
+a2[label="А1. Ручное присутствие;\nтолько начавшееся занятие",fillcolor="#fff4db"];
+n5->q2;
+q2->a2[label="да"];
+a2->n6;
+{rank=same;q2;a2;}
+q2->n6[label="нет"];
+n6->n7;
+q3[shape=diamond,label="Выбран CSV?",fillcolor="white"];
+a3[label="А3. Экспортировать CSV",fillcolor="#fff4db"];
+n7->q3;
+q3->a3[label="да"];
+a3->finish;
+{rank=same;q3;a3;}
+q3->xlsx[label="нет"];xlsx[label="7. Экспортировать XLSX"];xlsx->finish;
+}

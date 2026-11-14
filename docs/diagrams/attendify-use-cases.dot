@@ -1,0 +1,9 @@
+digraph G { graph [rankdir=TB,bgcolor="white",fontname="DejaVu Sans",fontsize=12,nodesep=0.35,ranksep=0.55,pad=0.15]; node [shape=box,style="rounded,filled",fillcolor="#f1f3f5",color="#374151",fontname="DejaVu Sans",fontsize=11,margin="0.12,0.08"];edge[color="#374151",fontname="DejaVu Sans",fontsize=9,arrowsize=0.7];
+graph[rankdir=LR];
+student[label="«actor»\nСтудент",shape=plaintext];teacher[label="«actor»\nПреподаватель",shape=plaintext];curator[label="«actor»\nКлассный руководитель",shape=plaintext];admin[label="«actor»\nАдминистратор",shape=plaintext];sdk[label="«external»\nSDK ближней связи",shape=plaintext];
+subgraph cluster_attendify {label="Attendify";color="#374151";
+node[shape=ellipse];uc1[label="UC-01\nОтметка присутствия"];uc2[label="UC-02\nПриём и сводка"];uc3[label="UC-03\nПосещаемость и риск"];uc4[label="UC-04\nАдминистрирование"];
+trans[label="Передача и проверка"];opening[label="Открытие приёма"];correction[label="Запрос исправления"];manual[label="Ручная фиксация"];csv[label="Экспорт CSV"];reset[label="Сброс привязки"];
+uc1->trans[label="«include»",style=dashed];uc2->opening[label="«include»",style=dashed];correction->uc1[label="«extend»",style=dashed];correction->uc2[label="«extend»",style=dashed];manual->uc3[label="«extend»",style=dashed];csv->uc3[label="«extend»",style=dashed];reset->uc4[label="«extend»",style=dashed];}
+student->uc1[dir=none];teacher->uc1[dir=none];teacher->uc2[dir=none];curator->uc3[dir=none];admin->uc4[dir=none];sdk->uc1[dir=none];
+}

@@ -1,0 +1,3 @@
+digraph G { graph [rankdir=TB,bgcolor="white",fontname="DejaVu Sans",fontsize=12,nodesep=0.35,ranksep=0.55,pad=0.15]; node [shape=box,style="rounded,filled",fillcolor="#f1f3f5",color="#374151",fontname="DejaVu Sans",fontsize=11,margin="0.12,0.08"];edge[color="#374151",fontname="DejaVu Sans",fontsize=9,arrowsize=0.7];
+graph[rankdir=LR];a1[label="A1\nАктивировать и\nподготовить занятие"];a2[label="A2\nПринять и\nпроверить событие"];a3[label="A3\nСинхронизировать\nи разрешить конфликт"];a4[label="A4\nРассчитать\nпоказатели и риск"];a5[label="A5\nЭкспорт,хранение,\nаудит и копии"];a1->a2[label="снимок/допуск"];a2->a3[label="очередь"];a3->a4[label="действующий статус"];a4->a5[label="показатели"];
+}

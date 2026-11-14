@@ -1,0 +1,43 @@
+digraph G { graph [rankdir=TB,bgcolor="white",fontname="DejaVu Sans",fontsize=12,nodesep=0.35,ranksep=0.55,pad=0.15]; node [shape=box,style="rounded,filled",fillcolor="#f1f3f5",color="#374151",fontname="DejaVu Sans",fontsize=11,margin="0.12,0.08"];edge[color="#374151",fontname="DejaVu Sans",fontsize=9,arrowsize=0.7];
+graph[ranksep=0.2,nodesep=0.2];
+start[shape=circle,label="",width=0.15,height=0.15,fillcolor="#374151"];finish[shape=doublecircle,label="",width=0.18,height=0.18,fillcolor="#374151"];
+n1[label="1. Открыть управление"];
+n2[label="2. Создать предварительную запись"];
+n3[label="3. Основание обработки; привязка"];
+n4[label="4. Настроить риск и опоздание"];
+n5[label="5. Хранение и копирование"];
+n6[label="6. Просмотреть аудит"];
+n7[label="7. Сохранить версии; завершить"];
+start->n1;
+n1->n2;
+n2->n3;
+q0[shape=diamond,label="Нужно подтверждение?",fillcolor="white"];
+a0[label="А1. Ожидать представителя;\nне активировать",fillcolor="#fff4db"];
+n3->q0;
+q0->a0[label="да"];
+a0->finish;
+{rank=same;q0;a0;}
+q1[shape=diamond,label="Меняется устройство?",fillcolor="white"];
+a1[label="А2. Подтвердить сброс;\nповторная активация",fillcolor="#fff4db"];
+q0->q1;
+q1->a1[label="да"];
+a1->n4;
+{rank=same;q1;a1;}
+q1->n4[label="нет"];
+n4->n5;
+n5->n6;
+q2[shape=diamond,label="Запрос о данных?",fillcolor="white"];
+a2[label="А3. Полномочия;\nисполнение/мотивированный отказ",fillcolor="#fff4db"];
+n6->q2;
+q2->a2[label="да"];
+a2->n7;
+{rank=same;q2;a2;}
+q3[shape=diamond,label="Есть злоупотребление?",fillcolor="white"];
+a3[label="А4. Передать на рассмотрение\nсотруднику вне системы",fillcolor="#fff4db"];
+q2->q3;
+q3->a3[label="да"];
+a3->n7;
+{rank=same;q3;a3;}
+q3->n7[label="нет"];
+n7->finish;
+}

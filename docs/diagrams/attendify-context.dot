@@ -1,0 +1,3 @@
+digraph G { graph [rankdir=TB,bgcolor="white",fontname="DejaVu Sans",fontsize=12,nodesep=0.35,ranksep=0.55,pad=0.15]; node [shape=box,style="rounded,filled",fillcolor="#f1f3f5",color="#374151",fontname="DejaVu Sans",fontsize=11,margin="0.12,0.08"];edge[color="#374151",fontname="DejaVu Sans",fontsize=9,arrowsize=0.7];
+graph[rankdir=TB];in[label="I:Вход\nРасписание,списки,события"];control[label="C:Управление\nРоли,порог/период,регламент"];a0[label="A0\nУчёт посещаемости"];out[label="O:Выход\nСтатусы,риск,экспорт,аудит"];mech[label="M:Механизмы\nПриложения,SDK,сервер,БД"];{rank=same;in;a0;out;}control->a0[label="управление"];in->a0[label="вход",constraint=false];a0->out[label="выход",constraint=false];a0->mech[dir=back,label="механизм"];
+}

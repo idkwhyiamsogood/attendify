@@ -1,0 +1,37 @@
+digraph G { graph [rankdir=TB,bgcolor="white",fontname="DejaVu Sans",fontsize=12,nodesep=0.35,ranksep=0.55,pad=0.15]; node [shape=box,style="rounded,filled",fillcolor="#f1f3f5",color="#374151",fontname="DejaVu Sans",fontsize=11,margin="0.12,0.08"];edge[color="#374151",fontname="DejaVu Sans",fontsize=9,arrowsize=0.7];
+graph[rankdir=TB,nodesep=0.6,ranksep=0.3];
+curator_0[label="Руководитель"];
+api_0[label="API"];
+store_0[label="Журнал событий"];
+{rank=same;curator_0;api_0;store_0;}
+curator_1[shape=point,label="",width=.025];curator_0->curator_1[style=dashed,arrowhead=none];
+api_1[shape=point,label="",width=.025];api_0->api_1[style=dashed,arrowhead=none];
+store_1[shape=point,label="",width=.025];store_0->store_1[style=dashed,arrowhead=none];
+{rank=same;curator_1;api_1;store_1;}
+curator_1->api_1[label="1. Свой класс и период",constraint=false];
+curator_2[shape=point,label="",width=.025];curator_1->curator_2[style=dashed,arrowhead=none];
+api_2[shape=point,label="",width=.025];api_1->api_2[style=dashed,arrowhead=none];
+store_2[shape=point,label="",width=.025];store_1->store_2[style=dashed,arrowhead=none];
+{rank=same;curator_2;api_2;store_2;}
+api_2->store_2[label="2. Читать действующие статусы",constraint=false];
+curator_3[shape=point,label="",width=.025];curator_2->curator_3[style=dashed,arrowhead=none];
+api_3[shape=point,label="",width=.025];api_2->api_3[style=dashed,arrowhead=none];
+store_3[shape=point,label="",width=.025];store_2->store_3[style=dashed,arrowhead=none];
+{rank=same;curator_3;api_3;store_3;}
+curator_3->api_3[label="3. Корректировка с основанием",constraint=false];
+curator_4[shape=point,label="",width=.025];curator_3->curator_4[style=dashed,arrowhead=none];
+api_4[shape=point,label="",width=.025];api_3->api_4[style=dashed,arrowhead=none];
+store_4[shape=point,label="",width=.025];store_3->store_4[style=dashed,arrowhead=none];
+{rank=same;curator_4;api_4;store_4;}
+api_4->store_4[label="4. Добавить событие и аудит",constraint=false];
+curator_5[shape=point,label="",width=.025];curator_4->curator_5[style=dashed,arrowhead=none];
+api_5[shape=point,label="",width=.025];api_4->api_5[style=dashed,arrowhead=none];
+store_5[shape=point,label="",width=.025];store_4->store_5[style=dashed,arrowhead=none];
+{rank=same;curator_5;api_5;store_5;}
+api_5->curator_5[label="5. Пересчитанные показатели",constraint=false];
+curator_6[shape=point,label="",width=.025];curator_5->curator_6[style=dashed,arrowhead=none];
+api_6[shape=point,label="",width=.025];api_5->api_6[style=dashed,arrowhead=none];
+store_6[shape=point,label="",width=.025];store_5->store_6[style=dashed,arrowhead=none];
+{rank=same;curator_6;api_6;store_6;}
+curator_6->api_6[label="6. Экспорт XLSX/CSV",constraint=false];
+}

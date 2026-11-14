@@ -1,0 +1,37 @@
+digraph G { graph [rankdir=TB,bgcolor="white",fontname="DejaVu Sans",fontsize=12,nodesep=0.35,ranksep=0.55,pad=0.15]; node [shape=box,style="rounded,filled",fillcolor="#f1f3f5",color="#374151",fontname="DejaVu Sans",fontsize=11,margin="0.12,0.08"];edge[color="#374151",fontname="DejaVu Sans",fontsize=9,arrowsize=0.7];
+graph[rankdir=TB,nodesep=0.6,ranksep=0.3];
+student_0[label="Студент"];
+teacher_0[label="Телефон преподавателя"];
+server_0[label="Сервер"];
+{rank=same;student_0;teacher_0;server_0;}
+student_1[shape=point,label="",width=.025];student_0->student_1[style=dashed,arrowhead=none];
+teacher_1[shape=point,label="",width=.025];teacher_0->teacher_1[style=dashed,arrowhead=none];
+server_1[shape=point,label="",width=.025];server_0->server_1[style=dashed,arrowhead=none];
+{rank=same;student_1;teacher_1;server_1;}
+teacher_1->server_1[label="1. Загрузить снимок/допуски",constraint=false];
+student_2[shape=point,label="",width=.025];student_1->student_2[style=dashed,arrowhead=none];
+teacher_2[shape=point,label="",width=.025];teacher_1->teacher_2[style=dashed,arrowhead=none];
+server_2[shape=point,label="",width=.025];server_1->server_2[style=dashed,arrowhead=none];
+{rank=same;student_2;teacher_2;server_2;}
+server_2->teacher_2[label="2. Подписанный снимок",constraint=false];
+student_3[shape=point,label="",width=.025];student_2->student_3[style=dashed,arrowhead=none];
+teacher_3[shape=point,label="",width=.025];teacher_2->teacher_3[style=dashed,arrowhead=none];
+server_3[shape=point,label="",width=.025];server_2->server_3[style=dashed,arrowhead=none];
+{rank=same;student_3;teacher_3;server_3;}
+student_3->teacher_3[label="3. Прямой вызов и подписанное событие",constraint=false];
+student_4[shape=point,label="",width=.025];student_3->student_4[style=dashed,arrowhead=none];
+teacher_4[shape=point,label="",width=.025];teacher_3->teacher_4[style=dashed,arrowhead=none];
+server_4[shape=point,label="",width=.025];server_3->server_4[style=dashed,arrowhead=none];
+{rank=same;student_4;teacher_4;server_4;}
+teacher_4->student_4[label="4. Локальное подтверждение",constraint=false];
+student_5[shape=point,label="",width=.025];student_4->student_5[style=dashed,arrowhead=none];
+teacher_5[shape=point,label="",width=.025];teacher_4->teacher_5[style=dashed,arrowhead=none];
+server_5[shape=point,label="",width=.025];server_4->server_5[style=dashed,arrowhead=none];
+{rank=same;student_5;teacher_5;server_5;}
+teacher_5->server_5[label="5. Пакет event_id по TLS",constraint=false];
+student_6[shape=point,label="",width=.025];student_5->student_6[style=dashed,arrowhead=none];
+teacher_6[shape=point,label="",width=.025];teacher_5->teacher_6[style=dashed,arrowhead=none];
+server_6[shape=point,label="",width=.025];server_5->server_6[style=dashed,arrowhead=none];
+{rank=same;student_6;teacher_6;server_6;}
+server_6->teacher_6[label="6. ACK либо конфликт",constraint=false];
+}
